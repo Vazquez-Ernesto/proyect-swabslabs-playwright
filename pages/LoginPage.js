@@ -30,11 +30,5 @@ export default class LoginPage {
     await this.loginButton.click();
   }
 
-  /**
-   * Valida que la URL sea la del inventario tras login exitoso
-   */
-  async validateLogin() {
-    await this.page.waitForURL('https://www.saucedemo.com/inventory.html');
-  }
 }
 

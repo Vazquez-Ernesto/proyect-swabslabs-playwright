@@ -46,7 +46,7 @@ export default class UrlPage {
     await this.validateUrl(this.urls.checkout);
   }
   /** Valida la URL del resumen de checkout */
-  async validateCheckoutOverw() {
+  async validateCheckoutOverviewUrl() {
     await this.validateUrl(this.urls.checkoutOverview);
   }
 }

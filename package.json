@@ -1,7 +1,8 @@
 {
-  "name": "proyect-swabslabs-playwrigth",
+  "name": "swag-labs-playwright-automation",
   "version": "1.0.0",
   "type": "module",
+  "description": "E2E test automation for Swag Labs (SauceDemo) using Playwright and JavaScript — portfolio demo project",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
@@ -11,12 +12,28 @@
     "report": "playwright show-report",
     "test:single": "playwright test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "playwright",
+    "automation",
+    "e2e-testing",
+    "qa-automation",
+    "javascript",
+    "saucedemo",
+    "page-object-model",
+    "cross-browser"
+  ],
+  "author": "Ernesto Alexis Vázquez <ernestoalexisvazquez@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.53.0",
     "playwright": "^1.53.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vazquez-Ernesto/proyect-swabslabs-playwright.git"
   }
 }

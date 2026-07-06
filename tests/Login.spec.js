@@ -15,41 +15,38 @@ test('Login exitoso con credenciales válidas', async ({ page }) => {
 });
 
 
-test('login con credenciales invalidas', async ({ page }) => {
+test('Login con usuario bloqueado muestra error', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
-  await loginPage.goto();  await loginPage.login(USERS.LOCKED.username, USERS.LOCKED.password);
+  await loginPage.goto();
+  await loginPage.login(USERS.LOCKED.username, USERS.LOCKED.password);
 
-  // Validamos que el mensaje de error es visible
   await expect(page.getByText(MESSAGES.ERRORS.LOCKED_USER)).toBeVisible();
 });
 
-test('login con campos vacíos', async ({ page }) => {
+test('Login con campos vacíos muestra error de username', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.goto();
   await loginPage.login('', '');
 
-  // Validamos que el mensaje de error es visible
-  await expect(page.getByText('Epic sadface: Username is required')).toBeVisible();
+  await expect(page.getByText(MESSAGES.ERRORS.EMPTY_USERNAME)).toBeVisible();
 });
 
-test('login con usuario vacío', async ({ page }) => {
+test('Login sin username muestra error de username', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.goto();
-  await loginPage.login  ('', 'secret_sauce');   
+  await loginPage.login('', 'secret_sauce');
 
-// Validamos que el mensaje de error es visible
-  await expect(page.getByText('Epic sadface: Username is required')).toBeVisible();
+  await expect(page.getByText(MESSAGES.ERRORS.EMPTY_USERNAME)).toBeVisible();
 });
 
-test('login con contraseña vacía', async ({ page }) => {
+test('Login sin password muestra error de password', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.goto();
-  await loginPage.login('standard_user', ''); 
+  await loginPage.login('standard_user', '');
 
-// Validamos que el mensaje de error es visible
-  await expect(page.getByText('Epic sadface: Password is required')).toBeVisible();
+  await expect(page.getByText(MESSAGES.ERRORS.EMPTY_PASSWORD)).toBeVisible();
 });

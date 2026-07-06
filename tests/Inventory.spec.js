@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage.js';
 import AddToCartPage from '../pages/AddToCartPage.js';
 import InventoryPage from '../pages/InventoryPage.js';
+import ProductDetailPage from '../pages/ProductDetailPage.js';
 import UrlPage from '../pages/UrlPage.js';
 import { USERS } from '../test-data/users.js';
 
@@ -32,7 +33,6 @@ test('Validar productos listados y navegación al detalle', async ({ page }) => 
   await inventoryPage.goToProductDetail(0);
 
   // Validar que el nombre en el detalle coincide
-  const ProductDetailPage = (await import('../pages/ProductDetailPage.js')).default;
   const productDetailPage = new ProductDetailPage(page);
   const detailName = await productDetailPage.getName();
   expect(detailName).toContain(firstProductName.trim());

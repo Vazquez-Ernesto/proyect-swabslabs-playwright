@@ -7,7 +7,7 @@ export default class AddToCartPage {
    */
   constructor(page) {
     this.page = page;
-    this.firstAddToCartButton = page.locator('div').filter({ hasText: /^\$29\.99ADD TO CART$/ }).getByRole('button'); // Ajusta el selector si hace falta
+    this.firstAddToCartButton = page.getByRole('button', { name: 'ADD TO CART' });
     this.firstRemoveButton = page.getByRole('button', { name: 'REMOVE' });
     this.cartBadge = page.locator('.shopping_cart_badge');
   }

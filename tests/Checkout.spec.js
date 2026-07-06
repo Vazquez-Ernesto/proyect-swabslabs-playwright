@@ -6,7 +6,7 @@ import CheckoutPage from '../pages/CheckoutPage.js';
 import UrlPage from '../pages/UrlPage.js';
 import { USERS } from '../test-data/users.js';
 
-test('🛒 Finalizar Pedido Exitosamente', async ({ page }) => {
+test('Finalizar pedido exitosamente', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const urlPage = new UrlPage(page);
   const addToCartPage = new AddToCartPage(page);
@@ -37,7 +37,7 @@ test('🛒 Finalizar Pedido Exitosamente', async ({ page }) => {
   await checkoutPage.proceedToOverview();
 
   // Paso 7: Validar llegada a página de resumen del pedido
-  await urlPage.validateCheckoutOverw(); // <- CORREGIDO AQUÍ
+  await urlPage.validateCheckoutOverviewUrl();
 
   // Paso 8: Finalizar compra
   await checkoutPage.finishCheckout();
@@ -46,7 +46,7 @@ test('🛒 Finalizar Pedido Exitosamente', async ({ page }) => {
   await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
 });
 
-test('❌ Cancelar Pedido Exitosamente', async ({ page }) => {
+test('Cancelar pedido desde el formulario de checkout', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const addToCartPage = new AddToCartPage(page);
   const cartPage = new CartPage(page);

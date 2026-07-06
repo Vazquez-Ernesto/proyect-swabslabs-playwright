@@ -2,14 +2,14 @@ import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage.js';
 import HeaderPage from '../pages/HeaderPage.js';
 import { USERS } from '../test-data/users.js';
-import urlPage from '../pages/UrlPage.js';
+import UrlPage from '../pages/UrlPage.js';
 
 // Test: Logout y navegación desde el header
 
 test('Logout exitoso desde el header', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const headerPage = new HeaderPage(page);
-  const url = new urlPage(page);
+  const url = new UrlPage(page);
 
   // Login
   await loginPage.goto();
