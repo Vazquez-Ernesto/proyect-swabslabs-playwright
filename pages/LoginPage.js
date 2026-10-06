@@ -16,7 +16,7 @@ export default class LoginPage {
    * Navega a la página de login
    */
   async goto() {
-    await this.page.goto('https://www.saucedemo.com/v1/');
+    await this.page.goto('/');
   }
 
   /**

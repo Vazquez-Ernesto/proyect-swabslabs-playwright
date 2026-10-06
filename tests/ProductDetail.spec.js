@@ -32,6 +32,7 @@ test('Validar información y agregar/quitar producto desde el detalle', async ({
 
   // Volver al inventario
   await productDetailPage.backToProducts();
-  // Validar que estamos de regreso en el inventario
-  expect(await inventoryPage.getProductCount()).toBeGreaterThan(0);
+  // Validar que estamos de regreso en el inventario (aserción con reintento:
+  // count() no espera y producía una race condition al volver de la navegación)
+  await expect(inventoryPage.productItems.first()).toBeVisible();
 });

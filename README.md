@@ -6,7 +6,7 @@
 [![Cross-browser](https://img.shields.io/badge/Browsers-Chromium%20%7C%20Firefox%20%7C%20WebKit-blue)](playwright.config.js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Proyecto de automatización E2E para [Swag Labs (SauceDemo)](https://www.saucedemo.com/v1/), construido con Playwright y JavaScript moderno (ESM). Cubre los flujos críticos de una aplicación de e-commerce: autenticación, catálogo de productos, carrito y checkout completo.
+Proyecto de automatización E2E para [Swag Labs (SauceDemo)](https://www.saucedemo.com/), construido con Playwright y JavaScript moderno (ESM). Cubre los flujos críticos de una aplicación de e-commerce: autenticación, catálogo de productos, carrito y checkout completo.
 
 ---
 
@@ -134,7 +134,26 @@ npx playwright test tests/Checkout.spec.js
 # Ejecutar en un solo navegador
 npx playwright test --project=chromium
 npx playwright test --project=firefox
+
+# Apuntar a otro entorno
+BASE_URL=https://staging.example.com/ npx playwright test
 ```
+
+### Capa experimental agentic (`e2e` de TesterArmy)
+
+Dos runners conviven: Playwright (`tests/`, principal y bloqueante) y
+[`e2e`](https://github.com/tester-army/e2e) (`e2e/`, experimental, no bloqueante),
+que combina `agent.act()` para objetivos en lenguaje natural con aserciones
+determinísticas. Requiere Node 24 (`.nvmrc`) y `ANTHROPIC_API_KEY`.
+
+```bash
+npx @e2e-dev/web install chromium
+npm run e2e        # local, cache de replay read-write
+npm run e2e:ci     # como CI: read-only + --strict-cache
+```
+
+La evaluación completa (diagnóstico, métricas, cache, seguridad y recomendación)
+está en [`docs/e2e-evaluation.md`](docs/e2e-evaluation.md).
 
 ---
 
@@ -167,7 +186,7 @@ npx playwright test --project=firefox
 
 | Caso de prueba | Resultado esperado |
 |----------------|-------------------|
-| Finalizar pedido exitosamente | Mensaje "THANK YOU FOR YOUR ORDER" |
+| Finalizar pedido exitosamente | Mensaje "Thank you for your order!" |
 | Cancelar pedido desde el formulario | Regreso a la vista del carrito |
 
 ### Header y navegación (`Header.spec.js`)
@@ -232,7 +251,7 @@ La IA señaló el dynamic import dentro del test (`await import(...)`) como un a
 
 ## Próximas mejoras
 
-- [ ] CI/CD con GitHub Actions (ejecutar en cada PR sobre los 3 browsers)
+- [x] CI/CD con GitHub Actions (ejecutar en cada PR sobre los 3 browsers)
 - [ ] `storageState` para reutilizar sesión autenticada entre tests (evitar login repetido)
 - [ ] Tests del módulo de filtros y ordenamiento del inventario
 - [ ] Validaciones de accesibilidad con `@axe-core/playwright`
@@ -249,4 +268,4 @@ La IA señaló el dynamic import dentro del test (`await import(...)`) como un a
 
 ---
 
-*Sitio bajo prueba: [Swag Labs v1](https://www.saucedemo.com/v1/) — entorno público de práctica para automatización de e-commerce.*
+*Sitio bajo prueba: [Swag Labs](https://www.saucedemo.com/) — entorno público de práctica para automatización de e-commerce. La versión `/v1/` fue retirada el 2025-10-31.*

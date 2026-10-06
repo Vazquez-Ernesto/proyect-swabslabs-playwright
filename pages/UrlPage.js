@@ -9,12 +9,13 @@ export default class UrlPage {
   constructor(page) {
     this.page = page;
     this.urls = {
-      cart: 'https://www.saucedemo.com/v1/cart.html',
-      checkout: 'https://www.saucedemo.com/v1/checkout-step-one.html',
-      checkoutOverview: 'https://www.saucedemo.com/v1/checkout-step-two.html',
-      home: 'https://www.saucedemo.com/v1/inventory.html',
-      login: 'https://www.saucedemo.com/v1/index.html',
-      checkoutComplete: 'https://www.saucedemo.com/v1/checkout-complete.html'
+      // Relativas: Playwright las resuelve contra `baseURL` (playwright.config.js)
+      cart: '/cart.html',
+      checkout: '/checkout-step-one.html',
+      checkoutOverview: '/checkout-step-two.html',
+      home: '/inventory.html',
+      login: '/',
+      checkoutComplete: '/checkout-complete.html'
     };
   }
 

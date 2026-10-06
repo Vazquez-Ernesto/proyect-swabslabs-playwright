@@ -1,0 +1,85 @@
+name: tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # Runner principal y bloqueante: Playwright determinístico, 3 browsers.
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # Capa experimental (e2e de TesterArmy): NO bloquea el merge.
+  # Corre solo si el repo tiene el secret ANTHROPIC_API_KEY. El cache de replay
+  # versionado se usa en modo read-only (default en CI) y --strict-cache hace
+  # fallar con REPLAY_STALE, sin llamar al modelo, un paso cuyo recording dejó
+  # de reproducirse: se re-graba localmente y se commitea.
+  e2e-agentic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    continue-on-error: true
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      E2E_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Skip without model credentials
+        id: gate
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "ANTHROPIC_API_KEY no configurado: se omite la capa agentic."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+        if: steps.gate.outputs.run == 'true'
+      - run: npx @e2e-dev/web install chromium --with-deps
+        if: steps.gate.outputs.run == 'true'
+      - run: npm run e2e:ci
+        if: steps.gate.outputs.run == 'true'
+      - name: Upload e2e report and artifacts
+        if: ${{ !cancelled() && steps.gate.outputs.run == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: |
+            .e2e/report.json
+            .e2e/junit.xml
+            .e2e/summary.md
+            .e2e/failures/
+            .e2e/artifacts/
+          if-no-files-found: warn
+          retention-days: 7

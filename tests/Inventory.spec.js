@@ -22,7 +22,8 @@ test('Validar productos listados y navegación al detalle', async ({ page }) => 
   // Validar que estamos en el inventario
   await urlPage.validateHomeUrl(page);
 
-  // Validar que hay al menos un producto
+  // Validar que hay al menos un producto (esperar al render: count() no reintenta)
+  await expect(inventoryPage.productItems.first()).toBeVisible();
   const count = await inventoryPage.getProductCount();
   expect(count).toBeGreaterThan(0);
 

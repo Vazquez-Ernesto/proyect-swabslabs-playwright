@@ -19,7 +19,8 @@ export default defineConfig({
     ['list'] // Reporte en consola
   ],
   use: {
-    baseURL: 'https://www.saucedemo.com/v1/',
+    // SauceDemo retiró /v1/ el 2025-10-31; BASE_URL permite apuntar a otro entorno.
+    baseURL: process.env.BASE_URL ?? 'https://www.saucedemo.com/',
     trace: 'on-first-retry', // Captura trace en el primer reintento
     screenshot: 'only-on-failure', // Screenshot solo en fallos
     video: 'retain-on-failure', // Video solo en fallos
