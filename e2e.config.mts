@@ -18,7 +18,7 @@ import { USERS } from './test-data/users.js';
 // E2E_MODEL permite cambiar el modelo sin editar este archivo; cambiarlo NO
 // invalida el cache de replay.
 const model = process.env.ANTHROPIC_API_KEY
-  ? anthropic(process.env.E2E_MODEL ?? 'claude-opus-5-5')
+  ? anthropic(process.env.E2E_MODEL ?? 'claude-sonnet-5-5')
   : undefined;
 
 export default {

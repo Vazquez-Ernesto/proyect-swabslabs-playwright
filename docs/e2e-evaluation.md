@@ -195,10 +195,10 @@ No se agregó ninguna API key. `e2e.config.mts` solo configura modelo si existe 
 | Tema | Análisis |
 |---|---|
 | Provider | `@ai-sdk/anthropic` directo (sin gateway): una sola credencial, sin intermediario, y Anthropic es una de las opciones documentadas por `e2e`. El repo no tenía configuración de IA previa |
-| Modelo por defecto | `claude-opus-5-5` (configurable con `E2E_MODEL`). Necesita tool use + visión; lo tienen todos los de la tabla |
+| Modelo por defecto | `claude-sonnet-5-5`, elegido por el equipo por costo (configurable con `E2E_MODEL`). Necesita tool use + visión; lo tienen todos los de la tabla. Para pasos que fallen por calidad, `E2E_MODEL=claude-opus-5-5` |
 | Compatibilidad | Opus 5.5 y Sonnet 5.5 rechazan `tool_choice` forzado. `e2e@0.18.0` lo maneja: reintenta con `auto` (`dist/agent/model/tool-choice.js`) |
-| Precio por MTok (input / output) | Opus 5.5 $4 / $20 · Sonnet 5.5 $2 / $10 · Haiku 4.5 $1 / $5. Elegir un modelo más barato es decisión del equipo; cambiarlo no invalida el cache |
-| Tokens por paso | **NO MEDIDO** (sin key). Dato real: la observación más grande fue de 6.650 bytes (`usage.maxObservationBytes`). **ESTIMADO:** un `act` de checkout (6 acciones) ≈ 5–8 turnos × 3–6k tokens de entrada ≈ 20–40k entrada + 1–2k salida ⇒ ~$0.10–0.20 por ejecución en vivo con Opus 5.5, la mitad con Sonnet 5.5. En replay: $0 |
+| Precio por MTok (input / output) | Opus 5.5 $4 / $20 · Sonnet 5.5 $2 / $10 · Haiku 4.5 $1 / $5. Cambiar de modelo no invalida el cache |
+| Tokens por paso | **NO MEDIDO** (sin key). Dato real: la observación más grande fue de 6.650 bytes (`usage.maxObservationBytes`). **ESTIMADO:** un `act` de checkout (6 acciones) ≈ 5–8 turnos × 3–6k tokens de entrada ≈ 20–40k entrada + 1–2k salida ⇒ ~$0.05–0.10 por ejecución en vivo con Sonnet 5.5 (el doble con Opus 5.5). En replay: $0 |
 | Latencia | Replay medido: 5.8 s el checkout. En vivo: **NO MEDIDO** (se suma la latencia de cada turno del modelo) |
 | Modelo local | Soportado vía `@ai-sdk/openai-compatible`, pero necesita tool calling + visión con calidad suficiente; no se evaluó. No recomendado para CI |
 | CI | Key solo como secret del repo; el job agentic se salta si no existe |
@@ -319,7 +319,7 @@ Variables:
 |---|---|
 | `BASE_URL` | Entorno para los dos runners (default `https://www.saucedemo.com/`) |
 | `ANTHROPIC_API_KEY` | Requerida por los tests que usan `agent` |
-| `E2E_MODEL` | Opcional, default `claude-opus-5-5` |
+| `E2E_MODEL` | Opcional, default `claude-sonnet-5-5` |
 | `E2E_USER_STANDARD_USERNAME` / `E2E_USER_STANDARD_PASSWORD` | Override de la credencial |
 | `E2E_TELEMETRY_DISABLED=1` | Desactiva la telemetría de la CLI |
 
