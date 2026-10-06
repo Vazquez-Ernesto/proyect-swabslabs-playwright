@@ -143,7 +143,7 @@ no se forzó un tercero (ver al final).
 9. **Beneficio (medido con la mutación deliberada):** Playwright falló 4 tests; `e2e` en read-write pasó solo, re-grabó, y la siguiente corrida volvió a 0 llamadas.
 10. **Recomendación:** **mantener como experimental** 4–6 semanas con las métricas de la sección 7. Si no se registra ningún cambio de UI en ese período que Playwright no haya absorbido con un locator semántico, revertir.
 
-### POC-2 — Logout (`e2e/logout.e2e.js`) → **revertir** (ya revertido en el commit siguiente)
+### POC-2 — Logout (`e2e/logout.e2e.js`, eliminado) → **revertir** (ya revertido; el archivo queda en el historial de git)
 
 1. **Hoy:** `HeaderPage.logout()` → `.bm-burger-button` + `#logout_sidebar_link`.
 2. **Problema supuesto:** el menú hamburguesa es un detalle de implementación que cambia entre versiones.
