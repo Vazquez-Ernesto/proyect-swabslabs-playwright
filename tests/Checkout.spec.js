@@ -5,6 +5,7 @@ import CartPage from '../pages/CartPage.js';
 import CheckoutPage from '../pages/CheckoutPage.js';
 import UrlPage from '../pages/UrlPage.js';
 import { USERS } from '../test-data/users.js';
+import { MESSAGES } from '../test-data/messages.js';
 
 test('Finalizar pedido exitosamente', async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -43,7 +44,7 @@ test('Finalizar pedido exitosamente', async ({ page }) => {
   await checkoutPage.finishCheckout();
 
   // Paso 9: Validar mensaje final
-  await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+  await expect(page.locator('.complete-header')).toHaveText(MESSAGES.SUCCESS.ORDER_COMPLETE);
 });
 
 test('Cancelar pedido desde el formulario de checkout', async ({ page }) => {

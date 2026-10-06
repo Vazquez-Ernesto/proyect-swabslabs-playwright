@@ -9,9 +9,9 @@ export default class CartPage {
     this.page = page;
     this.cartItemCount = page.locator('.shopping_cart_badge');
     this.checkoutButton = page.locator('.checkout_button'); // Ajustado selector
-    this.validateUrlCart = 'https://www.saucedemo.com/cart.html';
-    this.valideteUrlCheckout = 'https://www.saucedemo.com/checkout-step-one.html';
-    this.validateUrlHome = 'https://www.saucedemo.com/inventory.html';
+    this.validateUrlCart = '/cart.html';
+    this.valideteUrlCheckout = '/checkout-step-one.html';
+    this.validateUrlHome = '/inventory.html';
   }
 
   /**

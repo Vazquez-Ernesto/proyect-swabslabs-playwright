@@ -6,7 +6,7 @@ export const MESSAGES = {
     INVALID_CREDENTIALS: 'Epic sadface: Username and password do not match any user in this service'
   },
   SUCCESS: {
-    ORDER_COMPLETE: 'THANK YOU FOR YOUR ORDER',
+    ORDER_COMPLETE: 'Thank you for your order!',
     CHECKOUT_COMPLETE: 'Your order has been dispatched'
   }
 };

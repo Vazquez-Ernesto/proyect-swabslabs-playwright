@@ -7,7 +7,7 @@ export default class SessionPage {
    */
   constructor(page) {
     this.page = page;
-    this.loginUrl = 'https://www.saucedemo.com/';
+    this.loginUrl = new URL('/', process.env.BASE_URL ?? 'https://www.saucedemo.com/').href;
   }
 
   /**

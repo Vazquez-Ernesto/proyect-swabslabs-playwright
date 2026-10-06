@@ -10,7 +10,7 @@ export default class CheckoutPage {
     this.firstNameInput = page.locator('#first-name');
     this.lastNameInput = page.locator('#last-name');
     this.postalCodeInput = page.locator('#postal-code');
-    this.continueButton = page.locator('input[value="CONTINUE"]');
+    this.continueButton = page.getByRole('button', { name: 'Continue' });
     this.finishCheckoutButton = page.locator('.btn_action.cart_button');
     this.cancelButton = page.locator('.cart_cancel_link.btn_secondary');
   }

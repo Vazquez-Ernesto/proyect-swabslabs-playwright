@@ -7,7 +7,7 @@ test('Redirección a login al intentar acceder a página protegida', async ({ pa
   const sessionPage = new SessionPage(page);
   
   // Intentamos acceder a la página protegida
-  await sessionPage.goToProtectedUrl('https://www.saucedemo.com/inventory.html');
+  await sessionPage.goToProtectedUrl('/inventory.html');
   
   // Validamos que fuimos redirigidos al login
   const isRedirected = await sessionPage.validateRedirectToLogin();
@@ -15,7 +15,7 @@ test('Redirección a login al intentar acceder a página protegida', async ({ pa
   
   // Verificamos que la URL es la correcta
   const currentUrl = page.url();
-  expect(currentUrl, `URL incorrecta: ${currentUrl}`).toBe('https://www.saucedemo.com/');
+  expect(currentUrl, `URL incorrecta: ${currentUrl}`).toBe(sessionPage.loginUrl);
 
   // Validamos el título de la página
   const pageTitle = await page.title();
@@ -46,7 +46,7 @@ test('Redirección a login al intentar acceder a página protegida', async ({ pa
   await page.goBack();
   const backUrl = page.url();
   expect(
-    backUrl === 'https://www.saucedemo.com/' || backUrl === 'about:blank',
+    backUrl === sessionPage.loginUrl || backUrl === 'about:blank',
     `La URL después de ir atrás no es segura: ${backUrl}`
   ).toBe(true);
 });
