@@ -23,3 +23,8 @@ yarn-error.log*
 
 # Otros
 *.log
+
+# e2e (TesterArmy): reportes, artifacts, traces, sesiones cifradas y videos de MCP.
+# El cache de replay (.e2e/cache/) SÍ se versiona: ver docs/e2e-evaluation.md
+.e2e/*
+!.e2e/cache/

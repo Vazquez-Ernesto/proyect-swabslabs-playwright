@@ -10,7 +10,15 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
-    "test:single": "playwright test"
+    "test:single": "playwright test",
+    "e2e": "e2e run",
+    "e2e:headed": "e2e run --headed",
+    "e2e:no-cache": "e2e run --no-cache",
+    "e2e:ci": "e2e run --strict-cache --reporter list,junit,markdown",
+    "e2e:list": "e2e list",
+    "e2e:cache": "e2e cache ls",
+    "e2e:cache:stats": "e2e cache stats",
+    "e2e:mcp": "e2e mcp"
   },
   "keywords": [
     "playwright",
@@ -25,7 +33,11 @@
   "author": "Ernesto Alexis Vázquez <ernestoalexisvazquez@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@ai-sdk/anthropic": "4.0.58",
+    "@e2e-dev/web": "0.13.0",
     "@playwright/test": "^1.53.0",
+    "ai": "7.0.107",
+    "e2e": "0.18.0",
     "playwright": "^1.53.0"
   },
   "engines": {
